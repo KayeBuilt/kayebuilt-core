@@ -1,5 +1,5 @@
 {
-  "name": "@kayebuilt/core-config",
+  "name": "@kayebuilt/core-auth",
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
@@ -14,15 +14,24 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run",
+    "test": "vitest run --exclude '**/node_modules/**' --exclude '**/dist/**' --exclude '**/*.integration.test.ts'",
+    "test:integration": "vitest run integration.test.ts",
     "lint": "biome check .",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@kayebuilt/core-config": "workspace:*",
+    "better-auth": "^1.1.16",
+    "drizzle-orm": "^0.45.2",
     "zod": "^3.24.1"
   },
+  "peerDependencies": {
+    "fastify": "^5.0.0"
+  },
   "devDependencies": {
+    "@kayebuilt/core-db": "workspace:*",
     "@types/node": "^22.20.1",
+    "fastify": "^5.1.0",
     "typescript": "^5.7.2",
     "vitest": "^4.1.10"
   }

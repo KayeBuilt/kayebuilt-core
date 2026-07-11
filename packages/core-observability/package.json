@@ -1,5 +1,5 @@
 {
-  "name": "@kayebuilt/core-config",
+  "name": "@kayebuilt/core-observability",
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
@@ -11,18 +11,23 @@
       "default": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": ["dist", "migrations"],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run",
+    "test": "vitest run --exclude '**/node_modules/**' --exclude '**/dist/**' --exclude '**/*.integration.test.ts'",
+    "test:integration": "vitest run integration.test.ts",
     "lint": "biome check .",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "zod": "^3.24.1"
+    "@sentry/node": "^8.47.0",
+    "drizzle-orm": "^0.45.2",
+    "pino": "^9.5.0"
   },
   "devDependencies": {
+    "@kayebuilt/core-db": "workspace:*",
     "@types/node": "^22.20.1",
+    "pino-pretty": "^13.0.0",
     "typescript": "^5.7.2",
     "vitest": "^4.1.10"
   }

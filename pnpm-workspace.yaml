@@ -1,8 +1,14 @@
 packages:
   - "packages/*"
+overrides:
+  # transitively pulled in below vitest's own required range (^6||^7||^8) by
+  # a stale resolution; force to a patched version to close a high-severity
+  # vite advisory (server.fs.deny bypass, GHSA-fx2h-pf6j-xcff).
+  vite: "^7.1.0"
 allowBuilds:
   '@biomejs/biome': true
   cpu-features: true
   esbuild: true
+  msgpackr-extract: true
   protobufjs: true
   ssh2: true

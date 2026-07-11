@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    uses: jaskaye17/kayebuilt-platform/.github/workflows/ci.yml@v1
+    with:
+      coverage-threshold: 70
+
+  handoff-readiness:
+    uses: jaskaye17/kayebuilt-platform/.github/workflows/handoff-readiness.yml@v1
+
+  security:
+    uses: jaskaye17/kayebuilt-platform/.github/workflows/security.yml@v1
