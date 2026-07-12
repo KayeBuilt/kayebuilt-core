@@ -20,6 +20,8 @@ ADRs 0001–0005 written (provisional defaults from PROJECT-CONTEXT.md §3), log
 
 Pushed to `github.com/KayeBuilt/kayebuilt-core` (transferred from a personal-account repo into the `kayebuilt` org so `.github/workflows/ci.yml` can call `kayebuilt-platform`'s reusable workflows cross-repo — GitHub doesn't allow that between two repos owned by the same *personal* account, only within an org).
 
+**CI is green**: `ci`, `security/gitleaks`, `security/pnpm-audit`, `handoff-readiness`, and `release` all pass. Getting here took five rounds of real fixes (org transfer, CodeQL needing GitHub Advanced Security, `pnpm/action-setup` version conflict, gitleaks license, hardcoded test emails, an empty `test:integration` script) — see `DECISIONS-PENDING.md`'s "CI: what actually broke" section for the full diagnostic trail before re-debugging any of this from scratch.
+
 ### Bugfixes landed after E1, discovered while building app-template's E3 walking skeleton
 
 Found by actually running the app end-to-end (not caught by tsc/lint/unit tests) — see `DECISIONS-PENDING.md` for full reasoning:
@@ -30,8 +32,7 @@ Found by actually running the app end-to-end (not caught by tsc/lint/unit tests)
 
 ## Next
 
-- Verify CI is green now that this repo and `platform` both live under the `kayebuilt` org.
-- E3: finish `app-template` (docker-compose.prod.yml, Dockerfiles, eject script, Playwright e2e, HANDOFF docs), then push it.
+- E3: finish `app-template` (docker-compose.prod.yml, Dockerfiles, eject script, Playwright e2e, HANDOFF docs), then push it (repo not yet created — see root `HUMAN-TODO.md`).
 - E4, E5.
 
 ## Judgment calls / things worth knowing
