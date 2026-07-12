@@ -1,6 +1,6 @@
 # CLAUDE.md — core
 
-Read order for any session in this repo: `~/dev/kayebuilt/docs/PROJECT-CONTEXT.md` (durable, cross-repo context) → this file → `docs/memory/STATE.md` (current status) → the specific package you're touching.
+Read order for any session in this repo: `~/dev/kayebuilt/docs/PROJECT-CONTEXT.md` (durable, cross-repo context) → this file → `docs/memory/STATE.md` (current status) → the relevant `docs/memory/workstreams/WS-*.md` if this session touches one → the specific package's own exports/types (its "contract" — `core` has no OpenAPI/domain schema of its own, downstream apps do). Run `/spinup` to have an agent do this automatically and report drift.
 
 ## What this repo is
 
