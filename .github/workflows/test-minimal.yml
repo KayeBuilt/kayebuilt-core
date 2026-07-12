@@ -4,10 +4,5 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
-    uses: KayeBuilt/kayebuilt-platform/.github/workflows/ci.yml@v1
-    with:
-      coverage-threshold: 70
-
-  handoff-readiness:
-    uses: KayeBuilt/kayebuilt-platform/.github/workflows/handoff-readiness.yml@v1
+  security:
+    uses: KayeBuilt/kayebuilt-platform/.github/workflows/security.yml@v1
