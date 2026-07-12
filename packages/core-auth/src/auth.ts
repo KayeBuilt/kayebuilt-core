@@ -21,6 +21,15 @@ export interface CreateAuthOptions {
   /** Extra better-auth plugins an app wants layered on top of email/password + organization. */
   // biome-ignore lint/suspicious/noExplicitAny: plugin array element type is intentionally open per better-auth's own plugin API.
   extraPlugins?: any[];
+  /**
+   * Origins allowed to make credentialed requests (e.g. a Next.js web app on
+   * a different port/host than the API). better-auth rejects state-changing
+   * requests from any origin not in this list (plus `env.BETTER_AUTH_URL`'s
+   * own origin, always trusted) — a legitimate cross-origin web client, not
+   * just a browser bug, will 403 with "Invalid origin" if its origin is
+   * missing here.
+   */
+  trustedOrigins?: string[];
 }
 
 /**
@@ -32,12 +41,13 @@ export interface CreateAuthOptions {
  * and independent of better-auth's more version-sensitive AC API.
  */
 export function createAuth(options: CreateAuthOptions) {
-  const { env, db, schema, extraPlugins = [] } = options;
+  const { env, db, schema, extraPlugins = [], trustedOrigins } = options;
 
   return betterAuth({
     database: drizzleAdapter(db, { provider: 'pg', schema }),
     secret: env.BETTER_AUTH_SECRET,
     baseURL: env.BETTER_AUTH_URL,
+    trustedOrigins,
     emailAndPassword: {
       enabled: true,
     },
