@@ -1,6 +1,6 @@
 # STATE.md — core
 
-Last updated: 2026-07-12 (E1 complete and pushed; two bugfixes landed while building E3)
+Last updated: 2026-07-12 (E1 complete and pushed; E3–E5 complete fleet-wide, E5's kit landed here)
 
 ## Status
 
@@ -30,10 +30,16 @@ Found by actually running the app end-to-end (not caught by tsc/lint/unit tests)
 2. `core-ui`'s `ThemeProvider`, `DataTable`, and the recharts wrappers needed `'use client'` for Next.js App Router (React Server Components).
 3. `core-auth`'s `createAuth()` had no `trustedOrigins` option, so a legitimate cross-origin web client (different port than the API) was rejected with "Invalid origin".
 
+## Update (2026-07-12) — E3–E5 complete elsewhere, plus E5's kit landed here too
+
+- E3 finished in `app-template` (pushed to `github.com/KayeBuilt/kayebuilt-app-template`), E4 (fleet plumbing) and E5 (agent operability kit) both done fleet-wide — see `app-template/docs/memory/STATE.md` for the full picture, this file only tracks `core`-specific state.
+- `renovate.json` added here, extending `KayeBuilt/.github`'s shared config (ADR-0002 in `platform`, provisional — `@kayebuilt/*` auto-merge stays off pending confirmation).
+- E5's kit landed in this repo too: `.claude/skills/{spinup,adr,handoff}`, `.claude/agents/{reviewer,test-writer,migration-checker}` (migration-checker adapted for `packages/*/migrations/` — no `packages/domain` here), `.claude/hooks/{lint-typecheck-changed,remind-handoff}`. Both hooks verified by actually running them against this repo.
+- `app-template`'s CI needs a `core-deploy-key` (or `kayebuilt-core` going public) to check this repo out cross-repo in its own CI — see root `HUMAN-TODO.md`. Not something to fix from this repo's side; the mechanism is verified working, it's purely a pending access-control decision.
+
 ## Next
 
-- E3: finish `app-template` (docker-compose.prod.yml, Dockerfiles, eject script, Playwright e2e, HANDOFF docs), then push it (repo not yet created — see root `HUMAN-TODO.md`).
-- E4, E5.
+- Nothing left in E0–E5 that touches `core` specifically. E6 (`construction-pm` generation) is gated on Jason's review of the provisional ADRs across `core` and `platform` — do not start it from here.
 
 ## Judgment calls / things worth knowing
 
