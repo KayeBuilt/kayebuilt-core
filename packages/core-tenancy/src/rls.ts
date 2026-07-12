@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { uuid } from 'drizzle-orm/pg-core';
+import { text } from 'drizzle-orm/pg-core';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { quoteIdent } from './ident.js';
 
@@ -7,10 +7,16 @@ import { quoteIdent } from './ident.js';
  * Drizzle column helper every tenant-scoped domain table spreads into its
  * schema definition, so the physical column name/type is identical
  * everywhere `rlsPolicy()` (and `expectTenantIsolation()`) expect it.
+ *
+ * Deliberately `text`, not `uuid`: the tenant id is `organization.id` from
+ * core-auth's better-auth setup, and better-auth generates its own opaque
+ * string ids (not UUIDs) for every table it owns, including `organization`.
+ * A `uuid`-typed column would reject those at insert time — `text` accepts
+ * both better-auth's ids and app-generated UUIDs equally.
  */
 export function tenantColumns() {
   return {
-    tenantId: uuid('tenant_id').notNull(),
+    tenantId: text('tenant_id').notNull(),
   };
 }
 
@@ -47,8 +53,8 @@ export function rlsPolicy(tableName: string, options: RlsPolicyOptions = {}): st
     `ALTER TABLE ${table} ENABLE ROW LEVEL SECURITY;`,
     `ALTER TABLE ${table} FORCE ROW LEVEL SECURITY;`,
     `CREATE POLICY ${policy} ON ${table}`,
-    `  USING (${column} = current_setting('app.tenant_id', true)::uuid)`,
-    `  WITH CHECK (${column} = current_setting('app.tenant_id', true)::uuid);`,
+    `  USING (${column} = current_setting('app.tenant_id', true))`,
+    `  WITH CHECK (${column} = current_setting('app.tenant_id', true));`,
   ].join('\n');
 }
 

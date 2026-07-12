@@ -29,9 +29,7 @@ describe('RLS adversarial isolation', () => {
       appDb: rlsDb.appDb,
       table: 'notes',
       seed: async (tx, tenantId) => {
-        await tx.execute(
-          sql`INSERT INTO notes (tenant_id, message) VALUES (${tenantId}::uuid, 'hello')`,
-        );
+        await tx.execute(sql`INSERT INTO notes (tenant_id, message) VALUES (${tenantId}, 'hello')`);
       },
     });
   }, 30_000);

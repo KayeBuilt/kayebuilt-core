@@ -7,7 +7,7 @@ describe('rlsPolicy', () => {
     expect(ddl).toContain('ALTER TABLE "budget_lines" ENABLE ROW LEVEL SECURITY;');
     expect(ddl).toContain('ALTER TABLE "budget_lines" FORCE ROW LEVEL SECURITY;');
     expect(ddl).toContain('CREATE POLICY "tenant_isolation" ON "budget_lines"');
-    expect(ddl).toContain('"tenant_id" = current_setting(\'app.tenant_id\', true)::uuid');
+    expect(ddl).toContain('"tenant_id" = current_setting(\'app.tenant_id\', true)');
   });
 
   it('honors custom column and policy names', () => {
