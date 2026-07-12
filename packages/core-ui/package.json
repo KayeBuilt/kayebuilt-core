@@ -16,7 +16,6 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "vitest run --exclude '**/node_modules/**' --exclude '**/dist/**' --exclude '**/*.integration.test.ts'",
-    "test:integration": "vitest run integration.test.ts",
     "lint": "biome check .",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
