@@ -6,9 +6,9 @@ describe('ConsoleMailer', () => {
     const spy = vi.spyOn(console, 'info').mockImplementation(() => {});
     const mailer = new ConsoleMailer();
     await expect(
-      mailer.send({ to: 'jason@kayebuilt.com', subject: 'Test', html: '<p>hi</p>' }),
+      mailer.send({ to: 'jason@example.com', subject: 'Test', html: '<p>hi</p>' }),
     ).resolves.toBeUndefined();
-    expect(spy).toHaveBeenCalledWith(expect.stringContaining('jason@kayebuilt.com'));
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining('jason@example.com'));
     spy.mockRestore();
   });
 });

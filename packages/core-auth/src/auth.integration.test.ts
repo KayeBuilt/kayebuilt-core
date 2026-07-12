@@ -47,13 +47,13 @@ describe('createAuth', () => {
 
       const result = await auth.api.signUpEmail({
         body: {
-          email: 'jason@kayebuilt.com',
+          email: 'jason@example.com',
           password: 'correct horse battery staple',
           name: 'Jason Kaye',
         },
       });
 
-      expect(result.user.email).toBe('jason@kayebuilt.com');
+      expect(result.user.email).toBe('jason@example.com');
     } finally {
       await cleanup();
     }

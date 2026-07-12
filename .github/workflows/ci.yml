@@ -8,12 +8,12 @@ on:
 
 jobs:
   ci:
-    uses: KayeBuilt/kayebuilt-platform/.github/workflows/ci.yml@v1.1
+    uses: KayeBuilt/kayebuilt-platform/.github/workflows/ci.yml@v1.2
     with:
       coverage-threshold: 70
 
   handoff-readiness:
-    uses: KayeBuilt/kayebuilt-platform/.github/workflows/handoff-readiness.yml@v1.1
+    uses: KayeBuilt/kayebuilt-platform/.github/workflows/handoff-readiness.yml@v1.2
 
   security:
-    uses: KayeBuilt/kayebuilt-platform/.github/workflows/security.yml@v1.1
+    uses: KayeBuilt/kayebuilt-platform/.github/workflows/security.yml@v1.2
