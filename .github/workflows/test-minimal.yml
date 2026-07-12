@@ -1,8 +1,0 @@
-name: Test Minimal Reusable Call
-
-on:
-  workflow_dispatch:
-
-jobs:
-  security:
-    uses: KayeBuilt/kayebuilt-platform/.github/workflows/security.yml@v1
