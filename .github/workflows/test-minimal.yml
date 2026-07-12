@@ -1,0 +1,8 @@
+name: Test Minimal Reusable Call
+
+on:
+  workflow_dispatch:
+
+jobs:
+  handoff-readiness:
+    uses: KayeBuilt/kayebuilt-platform/.github/workflows/handoff-readiness.yml@v1
