@@ -8,3 +8,6 @@ jobs:
     uses: KayeBuilt/kayebuilt-platform/.github/workflows/ci.yml@v1
     with:
       coverage-threshold: 70
+
+  handoff-readiness:
+    uses: KayeBuilt/kayebuilt-platform/.github/workflows/handoff-readiness.yml@v1
