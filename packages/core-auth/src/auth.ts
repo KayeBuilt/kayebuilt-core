@@ -30,6 +30,28 @@ export interface CreateAuthOptions {
    * missing here.
    */
   trustedOrigins?: string[];
+  /**
+   * Enables Google sign-in when provided (omit entirely to leave it off -
+   * better-auth has no "disabled" state for a configured provider, so the
+   * key is only added to `socialProviders` when both values are present).
+   * The redirect URI to register in Google Cloud Console is
+   * `{BETTER_AUTH_URL}/api/auth/callback/google`.
+   */
+  googleOAuth?: { clientId: string; clientSecret: string };
+  /**
+   * Delivers the password-reset link to the user. Required for
+   * authClient.forgetPassword()/resetPassword() to actually work -
+   * better-auth's reset-password endpoints exist regardless, but silently
+   * can't reach the user without this. Defaults to logging the link to
+   * stdout (fine for local dev/demo; apps wanting real delivery pass their
+   * own callback here, e.g. wired to Resend/SendGrid - core-auth has no
+   * opinion on email providers).
+   */
+  sendResetPassword?: (params: {
+    user: { email: string };
+    url: string;
+    token: string;
+  }) => Promise<void>;
 }
 
 /**
@@ -41,7 +63,17 @@ export interface CreateAuthOptions {
  * and independent of better-auth's more version-sensitive AC API.
  */
 export function createAuth(options: CreateAuthOptions) {
-  const { env, db, schema, extraPlugins = [], trustedOrigins } = options;
+  const {
+    env,
+    db,
+    schema,
+    extraPlugins = [],
+    trustedOrigins,
+    googleOAuth,
+    sendResetPassword = async ({ user, url }) => {
+      console.log(`[core-auth] password reset link for ${user.email}: ${url}`);
+    },
+  } = options;
 
   return betterAuth({
     database: drizzleAdapter(db, { provider: 'pg', schema }),
@@ -50,7 +82,9 @@ export function createAuth(options: CreateAuthOptions) {
     trustedOrigins,
     emailAndPassword: {
       enabled: true,
+      sendResetPassword,
     },
+    ...(googleOAuth ? { socialProviders: { google: googleOAuth } } : {}),
     plugins: [
       organization({
         creatorRole: 'owner',
