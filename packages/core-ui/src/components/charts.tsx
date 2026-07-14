@@ -79,6 +79,7 @@ export function BarChart({ data, xKey, series, height = 300 }: ChartProps) {
             dataKey={s.key}
             name={s.label}
             fill={s.color ?? DEFAULT_COLORS[i % DEFAULT_COLORS.length]}
+            isAnimationActive={false}
           />
         ))}
       </RechartsBarChart>
