@@ -1,6 +1,6 @@
 # Use Railway over Fly.io for API/worker container hosting
 
-- Status: provisional — pending Jason confirmation
+- Status: **superseded by ADR-0006** (2026-07-14) — Jason standardized on Render instead, matching the already-deployed `permit-flow` project. Kept below for historical context.
 - Date: 2026-07-11
 
 ## Context and Problem Statement

@@ -4,11 +4,12 @@ Provisional defaults adopted from `PROJECT-CONTEXT.md` §3, each recorded as an 
 
 | ADR | Decision | File |
 |---|---|---|
-| 0001 | Railway over Fly.io (API/worker container hosting) | `docs/adr/0001-railway-over-flyio.md` |
+| 0001 | ~~Railway over Fly.io~~ — superseded by 0006 | `docs/adr/0001-railway-over-flyio.md` |
 | 0002 | Neon over Railway Postgres (branch-per-preview; no Neon-only features in app code) | `docs/adr/0002-neon-over-railway-postgres.md` |
 | 0003 | Biome over eslint+prettier | `docs/adr/0003-biome-over-eslint-prettier.md` |
 | 0004 | Resend behind the `Mailer` interface | `docs/adr/0004-resend-behind-mailer-interface.md` |
 | 0005 | Coverage gates: 85% domain / 70% overall (policy set now, enforcement deferred to first domain package) | `docs/adr/0005-coverage-gates.md` |
+| 0006 | Render over Railway (API/worker container hosting) — **accepted 2026-07-14**, matches the already-deployed `permit-flow` project | `docs/adr/0006-render-over-railway.md` |
 
 Confirm, amend, or reject each — flip `status:` to `accepted` (or superseded) once decided. None of these block E1–E5; they're logged so Phase 1 doesn't inherit silent assumptions.
 
