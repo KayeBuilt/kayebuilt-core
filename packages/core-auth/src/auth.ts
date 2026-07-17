@@ -52,6 +52,14 @@ export interface CreateAuthOptions {
     url: string;
     token: string;
   }) => Promise<void>;
+  /**
+   * Overrides better-auth's default 8-character minimum. Must be >= 1 —
+   * better-auth has no "no minimum" state, so an app wanting effectively no
+   * length requirement should pass 1, not 0.
+   */
+  minPasswordLength?: number;
+  /** Overrides better-auth's default 128-character maximum. */
+  maxPasswordLength?: number;
 }
 
 /**
@@ -73,6 +81,8 @@ export function createAuth(options: CreateAuthOptions) {
     sendResetPassword = async ({ user, url }) => {
       console.log(`[core-auth] password reset link for ${user.email}: ${url}`);
     },
+    minPasswordLength,
+    maxPasswordLength,
   } = options;
 
   return betterAuth({
@@ -83,6 +93,8 @@ export function createAuth(options: CreateAuthOptions) {
     emailAndPassword: {
       enabled: true,
       sendResetPassword,
+      ...(minPasswordLength !== undefined ? { minPasswordLength } : {}),
+      ...(maxPasswordLength !== undefined ? { maxPasswordLength } : {}),
     },
     ...(googleOAuth ? { socialProviders: { google: googleOAuth } } : {}),
     plugins: [
